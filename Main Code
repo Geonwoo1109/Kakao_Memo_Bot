@@ -1,0 +1,33 @@
+const Fs = FileStream;
+var bar = ("=").repeat (20);
+var 전체보기 = ("\u200b".repeat(500) + "\n\n");
+var Admin = ["김건우"];
+
+function response(room, msg, sender, isGroupChat, replier, imageDB, packageName) {
+  
+
+  
+  var M = (new Date().getMonth () +1);
+  var D = new Date ().getDate ();
+  var h = new Date().getHours ();
+  var min = new Date().getMinutes ();
+  var sec = new Date().getSeconds();
+  var time = (h+":"+min+":"+sec+"");
+  
+  var log = Fs.append ("/sdcard/Chatlog/"+room, time+"\n아이디: "+sender+"\n채팅내용: "+msg+"\n\n");
+  
+  if (msg.startsWith(".메모 ")) {
+    replier.reply ("내용 " + msg.substr (4) + "");
+    Fs.append ("/sdcard/Memo/memo", msg.substr(4));
+    replier.reply ("채팅기록" + 전체보기 + log);
+  }
+
+  if (msg == "/리셋" || msg == "!리셋") {
+    if (Admin.includes (sender)) {
+      Fs.write ("/sdcard/Chatlog/"+room, "");
+      replier.reply ("["+room+"] 방에 저장된 기록이 초기화 되었습니다.");
+    } else {
+      replier.reply ("삭제권한이 없습니다.");
+    }
+}
+}
