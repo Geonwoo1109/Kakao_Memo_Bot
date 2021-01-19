@@ -11,16 +11,18 @@ function response(room, msg, sender, isGroupChat, replier, imageDB, packageName)
   var sec = new Date().getSeconds();
   var time = (h+":"+min+":"+sec+"");
   
-  var log = Fs.append ("/sdcard/Chatlog/"+room, time+"\n아이디: "+sender+"\n채팅내용: "+msg+"\n\n");
-  
   if (msg.startsWith(".메모 ")) {
-    replier.reply ("내용 " + msg.substr (4) + "");
-    Fs.append ("/sdcard/Memo/memo", msg.substr(4));
-    replier.reply ("채팅기록" + 전체보기 + log);
+    replier.reply ("[메모에 내용을 추가합니다.]\n요청자: " + sender + "\n시간: " + time + "\n내용: " + msg.substr (4)
+                    + "\n\n저장된 메모 보기 -> [.메모보기]");
+    Fs.append ("/sdcard/Memo/memo", "요청자: " + sender + "\n시간: " + time + "\n내용: " + msg.substr(4) + "\n\n");
+  }
+  
+  if (msg == ".메모보기") {
+    replier.reply ("저장된 메모" + 전체보기 + Fs.read("/sdcard/Memo/memo"))
   }
 
-  if (msg == "/리셋" || msg == "!리셋") {
-      Fs.write ("/sdcard/Chatlog/"+room, "");
-      replier.reply ("["+room+"] 방에 저장된 기록이 초기화 되었습니다.");
+  if (msg == ".메모리셋") {
+      Fs.write ("/sdcard/Memo/memo, "");
+      replier.reply ("저장된 메모가 리셋됨.");
 }
 }
