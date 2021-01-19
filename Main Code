@@ -4,12 +4,13 @@ var 전체보기 = ("\u200b".repeat(500) + "\n\n");
 
 function response(room, msg, sender, isGroupChat, replier, imageDB, packageName) {
   
+  var Y = new Date().getFullyear
   var M = (new Date().getMonth () +1);
   var D = new Date ().getDate ();
   var h = new Date().getHours ();
   var min = new Date().getMinutes ();
   var sec = new Date().getSeconds();
-  var time = (h+":"+min+":"+sec+"");
+  var time = (M + "." + D + "." + h+":"+min+":"+sec+"");
   
   if (msg.startsWith(".메모 ")) {
     replier.reply ("[메모에 내용을 추가합니다.]\n요청자: " + sender + "\n시간: " + time + "\n내용: " + msg.substr (4)
