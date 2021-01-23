@@ -17,15 +17,15 @@ function response(room, msg, sender, isGroupChat, replier, imageDB, packageName)
     replier.reply ("[메모에 내용을 추가합니다.]\n요청자: " + sender + "\n시간: " + time + "\n내용: " + msg.substr (4)
                     + "\n\n저장된 메모 보기 -> [.메모보기]"
                     + "\n메모 리셋하기 -> [.메모리셋]");
-    Fs.append ("/sdcard/Memo/memo", "요청자: " + sender + "\n시간: " + time + "\n내용: " + msg.substr(4) + "\n\n");
+    Fs.append ("/sdcard/MemoList/" + sender, "\n시간: " + time + "\n내용: " + msg.substr(4) + "\n\n");
   }
   
   if (msg == ".메모보기") {
-    replier.reply ("저장된 메모" + 전체보기 + Fs.read("/sdcard/Memo/memo"))
+    replier.reply (sender + "님의 메모" + 전체보기 + "\n\n" + Fs.read("/sdcard/MemoList/" + sender))
   }
 
   if (msg == ".메모리셋") {
-      Fs.write ("/sdcard/Memo/memo, "");
-      replier.reply ("저장된 메모가 리셋됨.");
+      Fs.write ("/sdcard/MemoList/" + sender, "");
+      replier.reply (sender"님의 저장된 메모가 리셋됨.");
   }
 }
