@@ -6,7 +6,7 @@ function response(room, msg, sender, isGroupChat, replier, imageDB, packageName)
 
   if (msg.startsWith(".메모 ")) {
   
-    var Y = new Date().getFullyear();
+    var Y = new Date().getFullYear();
     var M = (new Date().getMonth () +1);
     var D = new Date ().getDate ();
     var h = new Date().getHours ();
@@ -21,11 +21,11 @@ function response(room, msg, sender, isGroupChat, replier, imageDB, packageName)
   }
   
   if (msg == ".메모보기") {
-    replier.reply (sender + "님의 메모" + 전체보기 + "\n\n" + Fs.read("/sdcard/MemoList/" + sender))
+    replier.reply (sender + "님의 메모" + 전체보기 + "\n\n" + Fs.read("/sdcard/MemoList/" + sender));
   }
 
   if (msg == ".메모리셋") {
       Fs.write ("/sdcard/MemoList/" + sender, "");
-      replier.reply (sender"님의 저장된 메모가 리셋됨.");
+      replier.reply (sender+"님의 저장된 메모가 리셋됨.");
   }
 }
